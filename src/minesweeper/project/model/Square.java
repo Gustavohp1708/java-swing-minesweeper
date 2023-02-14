@@ -13,11 +13,20 @@ public class Square {
 	private boolean marked;
 	
 	private List<Square> neighbors = new ArrayList<>();
+	private List<SquareObserver> observers = new ArrayList<>();
 	
 	public Square(int line, int column) {
 		
 		this.line = line;
 		this.column = column;
+	}
+	
+	public void registerObserver(SquareObserver observer) {
+		observers.add(observer);
+	}
+	
+	private void notifyObservers(SquareEvent event) {
+		observers.stream().forEach(o -> o.getEvent(this, event));
 	}
 	
 	boolean addNeighbor(Square neighbor) {
@@ -42,17 +51,25 @@ public class Square {
 	void toggleMarked(){
 		if(!open) {
 			marked = !marked;
+			
+			if (marked) {
+				notifyObservers(SquareEvent.MARKED);
+			}else {
+				notifyObservers(SquareEvent.UNMARK);
+			}
 		}
 	}
 	
 	boolean openSquare(){
 		
 		if(!open && !marked) {
-			open = true;
-			
+						
 			if(mine) {
-				// TODO Implementar nova versão
+				notifyObservers(SquareEvent.EXPLODE);
+				return true;
 			}
+			
+			setOpen(true);
 			
 			if(openNeighbor()) {
 				neighbors.forEach(n -> n.openSquare());
@@ -94,6 +111,10 @@ public class Square {
 		
 	void setOpen(boolean open) {
 		this.open = open;
+		
+		if(open) {
+			notifyObservers(SquareEvent.OPEN);
+		}
 	}
 
 	public boolean isOpen() {
