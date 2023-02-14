@@ -7,10 +7,18 @@ import java.util.function.Predicate;
 
 public class Board implements SquareObserver{
 
-	private int lines;
-	private int columns;
-	private int mines;
+	private final int lines;
+	private final int columns;
+	private final int mines;
 	
+	public int getLines() {
+		return lines;
+	}
+
+	public int getColumns() {
+		return columns;
+	}
+
 	private final List<Square> squares = new ArrayList<>();
 	private final List<Consumer<ResultEvent>> observers = new ArrayList<>();
 
@@ -23,6 +31,10 @@ public class Board implements SquareObserver{
 		generateSquares();
 		generateNeighbors();
 		drawMines();
+	}
+	
+	public void forEachSquares(Consumer<Square> function) {
+		squares.forEach(function);
 	}
 	
 	public void registerObservers(Consumer<ResultEvent> observer) {

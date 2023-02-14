@@ -1,5 +1,7 @@
 package minesweeper.project.view;
 
+import java.awt.GridLayout;
+
 import javax.swing.JPanel;
 
 import minesweeper.project.model.Board;
@@ -8,7 +10,14 @@ import minesweeper.project.model.Board;
 public class BoardPanel extends JPanel {
 	
 		public BoardPanel(Board board) {
-		// TODO Auto-generated constructor stub
+		
+			setLayout(new GridLayout(board.getLines(), board.getColumns())); 
+			
+			board.forEachSquares(s -> add(new SquaresView(s)));
+			board.registerObservers(e ->{
+				// TODO mostrar resultado				
+				
+			});
 	}
 
 }
