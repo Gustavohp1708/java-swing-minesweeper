@@ -24,6 +24,7 @@ public class SquaresView extends JButton implements SquareObserver, MouseListene
 	public SquaresView(Square square) {
 		this.square = square;
 		setBackground(BG_DEFAULT);
+		setOpaque(true);
 		setBorder(BorderFactory.createBevelBorder(0));
 		
 		addMouseListener(this);
@@ -50,8 +51,17 @@ public class SquaresView extends JButton implements SquareObserver, MouseListene
 	}
 
 	private void applyOpen() {
-		setBackground(BG_DEFAULT);
+		
 		setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		if(square.isMine()) {
+			setBackground(Color.BLACK);
+			setForeground(Color.RED);
+			setText("💥");
+			return;
+		}
+		
+		setBackground(BG_DEFAULT);
+		
 		
 		switch (square.minesNeighborhood()) {
 		case 1:
@@ -77,12 +87,15 @@ public class SquaresView extends JButton implements SquareObserver, MouseListene
 	}
 
 	private void applyMarked() {
-		// TODO Auto-generated method stub
+		setBackground(BG_MARKED);
+		setText("🚩");
 		
 	}
 
 	private void applyExplode() {
-		// TODO Auto-generated method stub
+		setBackground(Color.BLACK);
+		setForeground(Color.RED);
+		setText("💥");
 		
 	}
 

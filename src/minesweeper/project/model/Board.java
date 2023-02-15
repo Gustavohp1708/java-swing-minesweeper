@@ -114,6 +114,7 @@ public class Board implements SquareObserver{
 	private void showMines() {
 		squares.stream()
 		.filter(s -> s.isMine())
+		.filter(s -> !s.isMarked())
 		.forEach(s -> s.setOpen(true));
 	}
 	
