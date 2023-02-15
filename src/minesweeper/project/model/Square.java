@@ -48,7 +48,7 @@ public class Square {
 		
 	}
 		
-	void toggleMarked(){
+	public void toggleMarked(){
 		if(!open) {
 			marked = !marked;
 			
@@ -60,7 +60,7 @@ public class Square {
 		}
 	}
 	
-	boolean openSquare(){
+	public boolean openSquare(){
 		
 		if(!open && !marked) {
 						
@@ -79,7 +79,7 @@ public class Square {
 		return false;
 	}
 	
-	boolean openNeighbor() {
+	public boolean openNeighbor() {
 		return neighbors.stream().noneMatch(n -> n.mine);
 	}
 	
@@ -94,8 +94,8 @@ public class Square {
 		return safeOpenSquare || protectedSquare;
 	}
 	
-	long minesNeighborhood() {
-		return neighbors.stream().filter(n -> n.mine).count();
+	public int minesNeighborhood() {
+		return (int) neighbors.stream().filter(n -> n.mine).count();
 	}
 		
 	void restartGame() {

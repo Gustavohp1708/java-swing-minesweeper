@@ -1,6 +1,8 @@
 package minesweeper.project.view;
 
 import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -10,7 +12,7 @@ import minesweeper.project.model.SquareEvent;
 import minesweeper.project.model.SquareObserver;
 
 @SuppressWarnings("serial")
-public class SquaresView extends JButton implements SquareObserver{
+public class SquaresView extends JButton implements SquareObserver, MouseListener{
 	
 	private final Color BG_DEFAULT = new Color(184, 184, 184);
 	private final Color BG_MARKED = new Color(8, 179, 247);
@@ -24,7 +26,7 @@ public class SquaresView extends JButton implements SquareObserver{
 		setBackground(BG_DEFAULT);
 		setBorder(BorderFactory.createBevelBorder(0));
 		
-		
+		addMouseListener(this);
 		square.registerObserver(this);
 	}
 
@@ -48,8 +50,30 @@ public class SquaresView extends JButton implements SquareObserver{
 	}
 
 	private void applyOpen() {
-		// TODO Auto-generated method stub
+		setBackground(BG_DEFAULT);
+		setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		
+		switch (square.minesNeighborhood()) {
+		case 1:
+			setForeground(BG_TEXT_GREEN);
+			break;
+		case 2:
+			setForeground(Color.BLUE);
+			break;
+		case 3:
+			setForeground(Color.YELLOW);
+			break;
+		case 4:
+		case 5:
+		case 6:
+			setForeground(Color.RED);
+			break;
+		default:
+			setForeground(Color.PINK);
+		}
+		
+		String value = !square.openNeighbor() ? square.minesNeighborhood() + "" : "";
+		setText(value);
 	}
 
 	private void applyMarked() {
@@ -63,6 +87,38 @@ public class SquaresView extends JButton implements SquareObserver{
 	}
 
 	private void applyDefault() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void mousePressed(MouseEvent e) {
+		if(e.getButton() == 1) {
+			square.openSquare();
+		}else {
+			square.toggleMarked();
+		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
