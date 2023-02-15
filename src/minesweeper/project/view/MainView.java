@@ -8,7 +8,7 @@ import minesweeper.project.model.Board;
 public class MainView extends JFrame{
 	
 	public MainView() {
-		Board board = new Board(16, 30, 50);				
+		Board board = new Board(16, 30, 99);				
 		add(new BoardPanel(board));
 		
 		setTitle("Minesweeper");

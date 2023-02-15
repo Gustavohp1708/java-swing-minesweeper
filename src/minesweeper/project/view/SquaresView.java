@@ -100,7 +100,8 @@ public class SquaresView extends JButton implements SquareObserver, MouseListene
 	}
 
 	private void applyDefault() {
-		// TODO Auto-generated method stub
+		setBackground(BG_DEFAULT);
+		setBorder(BorderFactory.createBevelBorder(0));
 		
 	}
 	

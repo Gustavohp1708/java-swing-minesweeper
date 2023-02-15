@@ -2,5 +2,5 @@ package minesweeper.project.model;
 
 public enum SquareEvent {
 
-	OPEN, MARKED, UNMARK, EXPLODE
+	OPEN, MARKED, UNMARK, EXPLODE, RESTART
 }

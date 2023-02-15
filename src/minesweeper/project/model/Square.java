@@ -102,6 +102,7 @@ public class Square {
 		open = false;
 		mine = false;
 		marked = false;
+		notifyObservers(SquareEvent.RESTART);
 	}	
 		
 	public boolean isMarked() {
